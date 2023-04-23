@@ -11,6 +11,8 @@ namespace LAB5.ArbolesMulticaminos
 
 		public Nodo23 raiz { get; set; }
 
+		public Carros valor { get; set; }
+
 		
 
 		public void Insertar(Carros valor)
