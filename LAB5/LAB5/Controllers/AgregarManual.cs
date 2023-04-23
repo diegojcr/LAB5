@@ -1,12 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using LAB5.Models;
+using LAB5.ArbolesMulticaminos;
 
 namespace LAB5.Controllers
 {
+    [Route("api/[controller]")]
     public class AgregarManual : Controller
     {
-        public IActionResult Index()
+        [Route("Registro")]
+
+        
+        public ActionResult Registro()
         {
-            return View();
+            return View(new Carros());
+        }
+
+        Arbol23 arbol = new Arbol23();
+
+        //[HttpPost("manual")]
+        public ActionResult Registro(Carros carr)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(carr);
+            }
+            ViewBag.mensaje = "Datos validos";
+            arbol.Insertar(carr);
+
+            return View(carr);
         }
     }
 }
