@@ -19,6 +19,8 @@ namespace LAB5.ArbolesMulticaminos
 
 		public Nodo23 Padre { get; set; }
 
+		
+
 
 	}
 	

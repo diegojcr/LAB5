@@ -3,6 +3,7 @@ using LAB5.ArbolesMulticaminos;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.Extensions.Options;
 
 namespace LAB5.ArbolesMulticaminos
 {
@@ -29,6 +30,34 @@ namespace LAB5.ArbolesMulticaminos
 				InsertarPlaca(raiz, valor);
 			}
 		}
+
+		public void eliminarnodohoja(Carros valor)
+		{
+
+			Nodo23 nuevonodo = new Nodo23();
+			nuevonodo.valor = valor;
+			if (nuevonodo == null)
+			{
+				return;
+			}
+
+			eliminarplacahoja(raiz, valor);
+
+
+		}
+
+		public void eliminarnodounhijo(Carros valor)
+		{
+			Nodo23 nuevonodo = new Nodo23();
+			nuevonodo.valor = valor;
+			if (raiz == null)
+			{
+				return;
+			}
+
+		}
+
+
 
 		public Nodo23 InsertarPlaca(Nodo23 nodo, Carros valor)
 		{
@@ -100,6 +129,65 @@ namespace LAB5.ArbolesMulticaminos
 			
 				
 			
+
+		}
+
+		public void eliminarplacahoja(Nodo23 nodo, Carros valor)
+		{
+			if(nodo == null)
+			{
+				return;
+			}
+
+			if (string.Compare(valor.placa, nodo.valor.placa) > nodo.valor1)
+			{
+				eliminarplacahoja(nodo.HijoIzquierdo, valor);
+			}
+			else if (nodo.valor2 == null || string.Compare(valor.placa, nodo.valor.placa) < nodo.valor2) 
+			{
+				eliminarplacahoja(nodo.HijoMedio, valor);
+			}
+			else
+			{
+				eliminarplacahoja(nodo.HijoDerecho, valor);
+			}
+
+			if (nodo.HijoIzquierdo == null && nodo.HijoMedio == null && nodo.HijoDerecho== null)
+			{
+				if (nodo.Padre == null)
+				{
+					raiz = null;
+				}
+				else if (nodo.Padre.HijoIzquierdo == nodo)
+				{
+					nodo.Padre.HijoIzquierdo = null;
+				}
+				else if(nodo.Padre.HijoMedio == nodo)
+				{
+					nodo.Padre.HijoMedio = null;
+				}
+				else
+				{
+					nodo.Padre.HijoDerecho = null;
+				}
+
+				nodo = null;
+			}
+		}
+
+		public void eliminarplacaunhijo(Nodo23 nodo, Carros valor)
+		{
+			if (nodo == null)
+			{
+				return;
+			}
+
+			if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
+			{
+				nodo.HijoIzquierdo = eliminarplacaunhijo(nodo.HijoIzquierdo, valor);
+				
+			}
+
 
 		}
 
