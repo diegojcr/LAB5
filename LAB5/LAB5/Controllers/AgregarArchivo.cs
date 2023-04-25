@@ -13,7 +13,7 @@ namespace LAB5.Controllers
 
         public void Agregar(Carros carros)
         {
-          ad.Insertar(carros);
+          ad.insertar(carros);
         }
 
         Carros carros1 = new Carros();

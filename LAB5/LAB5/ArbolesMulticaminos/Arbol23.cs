@@ -12,57 +12,48 @@ namespace LAB5.ArbolesMulticaminos
 
 		public Nodo23 raiz { get; set; }
 
-		public Carros valor { get; set; }
-
-		
-
-		public void Insertar(Carros valor)
+		public void eliminarnodo23hijos(Carros valor)
 		{
-			Nodo23 nuevonodo = new Nodo23();
-			nuevonodo.valor = valor;
+			raiz = eliminarplaca23hijos(raiz, valor);
+		}
+
+		public void eliminarnodohijo(Carros valor)
+		{
 			if (raiz == null)
 			{
-				raiz = nuevonodo;
+				return;
 			}
 
-			else
-			{
-				InsertarPlaca(raiz, valor);
-			}
+			raiz = eliminarplacahijo(raiz, valor);
+
+
 		}
+
 
 		public void eliminarnodohoja(Carros valor)
 		{
-
-			Nodo23 nuevonodo = new Nodo23();
-			nuevonodo.valor = valor;
-			if (nuevonodo == null)
+			if (raiz == null)
 			{
 				return;
 			}
 
 			eliminarplacahoja(raiz, valor);
 
-
 		}
 
-		public void eliminarnodounhijo(Carros valor)
+		public void insertar(Carros valor)
 		{
-			Nodo23 nuevonodo = new Nodo23();
-			nuevonodo.valor = valor;
-			if (raiz == null)
-			{
-				return;
-			}
-
+			InsertarPlaca(raiz, valor);
 		}
-
-
 
 		public Nodo23 InsertarPlaca(Nodo23 nodo, Carros valor)
 		{
 
-			if (nodo.valor2== null)
+			if (nodo == null)
+			{
+				return new Nodo23(valor);
+			}
+			else if (nodo.valor2 == null)
 			{
 				if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
 				{
@@ -75,6 +66,8 @@ namespace LAB5.ArbolesMulticaminos
 				}
 
 				return nodo;
+
+
 			}
 			else
 			{
@@ -97,53 +90,47 @@ namespace LAB5.ArbolesMulticaminos
 
 			if (nodo.valor2 != null)
 			{
-				Nodo23 nuevonodo= new Nodo23();
+				Nodo23 nuevonodo = new Nodo23(nodo.valor2.Value);
 				nuevonodo.HijoIzquierdo = nodo.HijoMedio;
-				nuevonodo.HijoDerecho= nodo.HijoDerecho;
+				nuevonodo.HijoDerecho = nodo.HijoDerecho;
 
-				if (nuevonodo.HijoIzquierdo!= null)
+				if (nuevonodo.HijoIzquierdo != null)
 				{
 					nuevonodo.HijoIzquierdo.Padre = nuevonodo;
 				}
-				if(nuevonodo.HijoDerecho != null)
+				if (nuevonodo.HijoDerecho != null)
 				{
-					nuevonodo.HijoDerecho.Padre= nuevonodo;
+					nuevonodo.HijoDerecho.Padre = nuevonodo;
 				}
 				nodo.valor2 = null;
-				if(nodo.Padre == null)
+				if (nodo.Padre == null)
 				{
-					nodo.Padre = new Nodo23();
+					nodo.Padre = new Nodo23(nodo.valor1);
 					raiz = nodo.Padre;
 				}
 
-				InsertarPlaca(nodo.Padre, valor); 
-					
-
-				
-				
+				InsertarPlaca(nodo.Padre, nuevonodo.valor);
 
 
 			}
 
 			return null;
-			
-				
-			
+
 
 		}
 
-		public void eliminarplacahoja(Nodo23 nodo, Carros valor)
+		public Nodo23 eliminarplacahoja(Nodo23 nodo, Carros valor)
 		{
-			if(nodo == null)
+			if (nodo == null)
 			{
-				return;
+				return null;
 			}
 
-			if (string.Compare(valor.placa, nodo.valor.placa) > nodo.valor1)
+			if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
 			{
 				eliminarplacahoja(nodo.HijoIzquierdo, valor);
 			}
-			else if (nodo.valor2 == null || string.Compare(valor.placa, nodo.valor.placa) < nodo.valor2) 
+			else if (nodo.valor2 == null || string.Compare(valor.placa, nodo.valor.placa) < nodo.valor2)
 			{
 				eliminarplacahoja(nodo.HijoMedio, valor);
 			}
@@ -152,7 +139,7 @@ namespace LAB5.ArbolesMulticaminos
 				eliminarplacahoja(nodo.HijoDerecho, valor);
 			}
 
-			if (nodo.HijoIzquierdo == null && nodo.HijoMedio == null && nodo.HijoDerecho== null)
+			if (nodo.HijoIzquierdo == null && nodo.HijoMedio == null && nodo.HijoDerecho == null)
 			{
 				if (nodo.Padre == null)
 				{
@@ -162,7 +149,7 @@ namespace LAB5.ArbolesMulticaminos
 				{
 					nodo.Padre.HijoIzquierdo = null;
 				}
-				else if(nodo.Padre.HijoMedio == nodo)
+				else if (nodo.Padre.HijoMedio == nodo)
 				{
 					nodo.Padre.HijoMedio = null;
 				}
@@ -172,26 +159,151 @@ namespace LAB5.ArbolesMulticaminos
 				}
 
 				nodo = null;
+
 			}
+
+			return null;
 		}
 
-		public void eliminarplacaunhijo(Nodo23 nodo, Carros valor)
+		public Nodo23 eliminarplacahijo(Nodo23 nodo, Carros valor)
+		{
+			if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
+			{
+				nodo.HijoIzquierdo = eliminarplacahijo(nodo.HijoIzquierdo, valor);
+				return nodo;
+			}
+
+			else if (string.Compare(valor.placa, nodo.valor.placa) > nodo.valor1 && nodo.valor2 == null)
+			{
+				nodo.HijoDerecho = eliminarplacahijo(nodo.HijoMedio, valor);
+				return nodo;
+			}
+
+			else if (string.Compare(valor.placa, nodo.valor.placa) > nodo.valor2)
+			{
+				nodo.HijoMedio = eliminarplacahijo(nodo.HijoMedio, valor);
+				return nodo;
+			}
+
+			if (nodo.HijoIzquierdo != null && nodo.HijoMedio == null && nodo.HijoDerecho == null)
+			{
+				if (nodo.HijoIzquierdo.valor2 != null)
+				{
+					nodo.valor1 = nodo.HijoIzquierdo.valor2.Value;
+					nodo.HijoIzquierdo.valor2 = null;
+				}
+				else
+				{
+					nodo.valor1 = nodo.HijoIzquierdo.valor2.Value;
+					nodo.HijoIzquierdo = null;
+
+				}
+				return nodo;
+			}
+
+			else if (nodo.HijoMedio != null && nodo.HijoIzquierdo == null && nodo.HijoDerecho == null)
+			{
+				if (nodo.HijoMedio.valor2 != null)
+				{
+					nodo.valor1 = nodo.HijoMedio.valor2.Value;
+					nodo.HijoMedio.valor2 = null;
+				}
+				else
+				{
+					nodo.valor1 = nodo.HijoMedio.valor1;
+					nodo.HijoMedio = null;
+				}
+
+				return nodo;
+			}
+
+			else if (nodo.HijoDerecho != null && nodo.HijoIzquierdo == null && nodo.HijoMedio == null)
+			{
+				if (nodo.HijoDerecho.valor2 != null)
+				{
+					nodo.valor1 = nodo.HijoDerecho.valor1;
+					nodo.valor2 = nodo.HijoDerecho.valor2.Value;
+					nodo.HijoDerecho.valor2 = null;
+				}
+				else
+				{
+					nodo.valor1 = nodo.HijoDerecho.valor1;
+					nodo.HijoDerecho = null;
+				}
+
+				return nodo;
+			}
+
+			return nodo;
+		}
+
+		public Nodo23 eliminarplaca23hijos(Nodo23 nodo, Carros valor)
 		{
 			if (nodo == null)
 			{
-				return;
+				return null;
 			}
 
 			if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
 			{
-				nodo.HijoIzquierdo = eliminarplacaunhijo(nodo.HijoIzquierdo, valor);
-				
+				nodo.HijoIzquierdo = eliminarplaca23hijos(nodo.HijoIzquierdo, valor);
+
 			}
 
+			else if (nodo.valor2 == null || string.Compare(valor.placa, nodo.valor.placa) < nodo.valor2)
+			{
+				nodo.HijoMedio = eliminarplaca23hijos(nodo.HijoMedio, valor);
+			}
+			
+			else if(string.Compare(valor.placa, nodo.valor.placa) > nodo.valor2)
+			{
+				nodo.HijoDerecho = eliminarplaca23hijos(nodo.HijoDerecho, valor);
+			}
 
+			else
+			{
+				if(nodo.HijoIzquierdo == null && nodo.HijoMedio == null && nodo.HijoDerecho== null)
+				{
+					return null;
+				}
+				else if(nodo.HijoIzquierdo == null || nodo.HijoMedio == null || nodo.HijoDerecho == null)
+				{
+					if (nodo.HijoIzquierdo!= null)
+					{
+						return nodo.HijoIzquierdo;
+					}
+					else if (nodo.HijoMedio != null)
+					{
+						return nodo.HijoMedio;
+					}
+					else
+					{
+						return nodo.HijoDerecho;
+					}
+				}
+				else
+				{
+					int sucesor = encontrarsucesor(nodo.HijoMedio);
+					nodo.valor1 = sucesor;
+					sucesor = Convert.ToInt32(valor);
+					nodo.HijoMedio = eliminarplaca23hijos(nodo.HijoMedio, valor);
+				}
+			}
+
+			return nodo;
 		}
 
-		
+		public int encontrarsucesor(Nodo23 nodo)
+		{
+			while (nodo.HijoIzquierdo!= null)
+			{
+				nodo = nodo.HijoIzquierdo;
+			}
+
+			return Convert.ToInt32(nodo);
+		}
+
+
 
 	}
 }

@@ -4,6 +4,7 @@ namespace LAB5.ArbolesMulticaminos
 {
 	public class Nodo23
 	{
+		private int value;
 
 		public Nodo23 HijoIzquierdo { get; set; }
 		
@@ -19,9 +20,15 @@ namespace LAB5.ArbolesMulticaminos
 
 		public Nodo23 Padre { get; set; }
 
-		
+		public Nodo23(Carros valor)
+		{
+			this.valor = valor;
+		}
 
-
+		public Nodo23(int value)
+		{
+			this.value = value;
+		}
 	}
 	
 		
