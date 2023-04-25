@@ -12,33 +12,33 @@ namespace LAB5.ArbolesMulticaminos
 
 		public Nodo23 raiz { get; set; }
 
-		public void eliminarnodo23hijos(Carros valor)
+		public void Eliminar(Nodo23 nodo, Carros valor)
 		{
-			raiz = eliminarplaca23hijos(raiz, valor);
-		}
-
-		public void eliminarnodohijo(Carros valor)
-		{
-			if (raiz == null)
+			if (nodo.HijoIzquierdo == null && nodo.HijoMedio == null && nodo.HijoDerecho == null)
 			{
-				return;
+				if (raiz == null)
+				{
+					return;
+				}
+
+				eliminarplacahoja(raiz, valor);
+
+			}
+			else if (nodo.HijoIzquierdo != null && nodo.HijoMedio == null && nodo.HijoDerecho == null || nodo.HijoIzquierdo == null && nodo.HijoMedio != null && nodo.HijoDerecho == null || nodo.HijoIzquierdo == null && nodo.HijoMedio == null && nodo.HijoDerecho != null)
+			{
+				if (raiz == null)
+				{
+					return;
+				}
+
+				raiz = eliminarplacahijo(raiz, valor);
+
 			}
 
-			raiz = eliminarplacahijo(raiz, valor);
-
-
-		}
-
-
-		public void eliminarnodohoja(Carros valor)
-		{
-			if (raiz == null)
+			else if (nodo.HijoIzquierdo != null && nodo.HijoMedio != null && nodo.HijoDerecho == null || nodo.HijoIzquierdo != null && nodo.HijoMedio == null && nodo.HijoDerecho != null || nodo.HijoIzquierdo == null && nodo.HijoMedio != null && nodo.HijoDerecho != null || nodo.HijoIzquierdo != null && nodo.HijoMedio != null && nodo.HijoDerecho != null)
 			{
-				return;
+				raiz = eliminarplaca23hijos(raiz, valor);
 			}
-
-			eliminarplacahoja(raiz, valor);
-
 		}
 
 		public void insertar(Carros valor)
