@@ -25,7 +25,7 @@ namespace LAB5.Controllers
                 return View(carr);
             }
             ViewBag.mensaje = "Datos validos";
-            arbol.Insertar(carr);
+            arbol.insertar(carr);
 
             return View(carr);
         }

@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@model List<Carros>
+@{
+    ViewData["Title"] = "Lista de Carros";
+    <h1>Lista Carros</h1>
+
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Placa</td>
+                    <td>Color</td>
+                    <td>Propietario/td>
+                    <td>Latitud</td>
+                    <td>Longitud</td>
+                </tr>
+            </thead>
+
+            @foreach (var Carroactual in Model)
+            {
+                <tr>
+                    <td>@Carroactual.placa </td>
+                    <td>@Carroactual.color </td>
+                    <td>@Carroactual.propiertario </td>
+                    <td>@Carroactual.latitud </td>
+                    <td>@Carroactual.longitud </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+}

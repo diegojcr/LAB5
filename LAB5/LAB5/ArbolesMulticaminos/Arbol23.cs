@@ -293,6 +293,8 @@ namespace LAB5.ArbolesMulticaminos
 			return nodo;
 		}
 
+
+
 		public int encontrarsucesor(Nodo23 nodo)
 		{
 			while (nodo.HijoIzquierdo!= null)
