@@ -22,7 +22,10 @@ namespace LAB5.Controllers
             return View(paci);
         }
 
-        [HttpGet]
+        //[HttpGet]
+
+        [Route("Editar")]
+
         public ActionResult Editar(Carros carr)
         {
             if (!ModelState.IsValid)
@@ -35,13 +38,13 @@ namespace LAB5.Controllers
             return View(carr);
         }
 
-        /*[HttpPost]
-
+        //[HttpPost]
+        [Route("delet")]
         public IActionResult delet(Carros carr)
         {
             Arbol23.delet(carr);
             return View(new Carros());
-        }*/
+        }
 
     }
 }

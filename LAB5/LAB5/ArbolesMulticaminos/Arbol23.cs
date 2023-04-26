@@ -46,15 +46,20 @@ namespace LAB5.ArbolesMulticaminos
 
 		public static void insertar(Carros valor)
 		{
-            list.Add(valor);
-            /*if (raiz == null)
+            
+            if (raiz == null)
             {
                 raiz = new Nodo23(valor);
-                return;
-            }
-
-            InsertarPlaca(raiz, valor);*/
-        }
+				
+			}
+			else
+			{
+				InsertarPlaca(raiz,valor);
+				
+			}
+			//InsertarPlaca(raiz, valor);
+			list.Add(valor);
+		}
 		
 
 		public static Nodo23 InsertarPlaca(Nodo23 nodo, Carros valor)
@@ -62,47 +67,63 @@ namespace LAB5.ArbolesMulticaminos
 
         if (nodo == null)
         {
-            if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
-            {
-                nodo.valor2 = nodo.valor1;
-                nodo.valor1 = Convert.ToInt32(valor.placa);
+				try 
+				{
+					if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
+					{
+						nodo.valor2 = nodo.valor1;
+						nodo.valor1 = Convert.ToInt32(valor.placa);
 
-            }
-            else
-            {
-                nodo.valor2 = Convert.ToInt32(valor.placa);
-            }
+					}
+					else
+					{
+						nodo.valor2 = Convert.ToInt32(valor.placa);
+					}
+				}catch(Exception E)
+				{
+
+				}
+
+
 
             return nodo;
         }
         else
         {
-            if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
-            {
-                nodo.HijoIzquierdo = InsertarPlaca(nodo.HijoIzquierdo, valor);
-            }
-            else if (string.Compare(valor.placa, nodo.valor.placa) > nodo.valor2)
-            {
-                nodo.HijoDerecho = InsertarPlaca(nodo.HijoDerecho, valor);
-            }
 
-            else
-            {
-                nodo.HijoMedio = InsertarPlaca(nodo.HijoMedio, valor);
-            }
+				try
+				{
+					if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
+					{
+						nodo.HijoIzquierdo = InsertarPlaca(nodo, valor);
+					}
+					else if (string.Compare(valor.placa, nodo.valor.placa) > nodo.valor2)
+					{
+						nodo.HijoDerecho = InsertarPlaca(nodo.HijoDerecho, valor);
+					}
 
-            if (nodo.HijoIzquierdo != null && nodo.HijoMedio != null && nodo.HijoDerecho != null)
-            {
-                Nodo23 nuevonodo = new Nodo23(nodo.valor2.Value);
-                nuevonodo.HijoIzquierdo = nodo.HijoIzquierdo;
-                nuevonodo.HijoMedio = nodo.HijoMedio;
-                nuevonodo.HijoDerecho = nodo.HijoDerecho;
-                nuevonodo.HijoIzquierdo.Padre = nuevonodo;
-                nuevonodo.HijoMedio.Padre = nuevonodo;
-                nuevonodo.HijoDerecho.Padre = nuevonodo;
-                nodo = nuevonodo;
+					else
+					{
+						nodo.HijoMedio = InsertarPlaca(nodo.HijoMedio, valor);
+					}
 
-            }
+					if (nodo.HijoIzquierdo != null && nodo.HijoMedio != null && nodo.HijoDerecho != null)
+					{
+						Nodo23 nuevonodo = new Nodo23(nodo.valor2.Value);
+						nuevonodo.HijoIzquierdo = nodo.HijoIzquierdo;
+						nuevonodo.HijoMedio = nodo.HijoMedio;
+						nuevonodo.HijoDerecho = nodo.HijoDerecho;
+						nuevonodo.HijoIzquierdo.Padre = nuevonodo;
+						nuevonodo.HijoMedio.Padre = nuevonodo;
+						nuevonodo.HijoDerecho.Padre = nuevonodo;
+						nodo = nuevonodo;
+
+					}
+				}catch(Exception E)
+				{
+
+				}
+			
 
             return nodo;
         }
@@ -296,14 +317,7 @@ namespace LAB5.ArbolesMulticaminos
 			return Convert.ToInt32(nodo);
 		}
         
-        public static List<Carros> Salida()
-		{
-			
-			
-			//list.Add(carr);
-			//Recorrido(raiz, list);
-			return list;
-		}
+        
 
 		public static void edit(Carros carr)
 		{
@@ -335,7 +349,13 @@ namespace LAB5.ArbolesMulticaminos
 
 			Recorrido(nodo.HijoDerecho, list);
 		}
-
+		public static List<Carros> Salida()
+		{
+			
+			//list.Add(carr);
+			//Recorrido(raiz, list);
+			return list;
+		}
 
 	}
 }
