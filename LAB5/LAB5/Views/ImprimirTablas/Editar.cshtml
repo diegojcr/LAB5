@@ -1,0 +1,45 @@
+﻿@model LAB5.Models.Carros
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>Editar</h1>
+<h4>Carros</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Editar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="placa" class="control-label"></label>
+                <input asp-for="placa" class="form-control" />
+                <span asp-validation-for="placa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="color" class="control-label"></label>
+                <input asp-for="color" class="form-control" />
+                <span asp-validation-for="color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="propiertario" class="control-label"></label>
+                <input asp-for="propiertario" class="form-control" />
+                <span asp-validation-for="propiertario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="latitud" class="control-label"></label>
+                <input asp-for="latitud" class="form-control" />
+                <span asp-validation-for="latitud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="longitud" class="control-label"></label>
+                <input asp-for="longitud" class="form-control" />
+                <span asp-validation-for="longitud" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

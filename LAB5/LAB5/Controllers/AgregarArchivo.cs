@@ -9,11 +9,10 @@ namespace LAB5.Controllers
     {
         public List <Carros> carros = new List<Carros>();
         public Arbol23<Carros> arbol23 = new Arbol23<Carros>();
-        public Arbol23 ad = new Arbol23();
 
         public void Agregar(Carros carros)
         {
-          ad.insertar(carros);
+          Arbol23.insertar(carros);
         }
 
         Carros carros1 = new Carros();
@@ -70,6 +69,8 @@ namespace LAB5.Controllers
             return View();
         }
         [Route("SubirArchivo")]
+
+
 
         public IActionResult SubirArchivo()
         {

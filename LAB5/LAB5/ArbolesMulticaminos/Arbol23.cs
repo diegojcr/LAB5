@@ -10,7 +10,10 @@ namespace LAB5.ArbolesMulticaminos
 	public class Arbol23
 	{
 
-		public Nodo23 raiz { get; set; }
+		public static List<Nodo23> lsd = new List<Nodo23>();
+        static List<Carros> list = new List<Carros>();
+
+        public static Nodo23 raiz { get; set; }
 
 		public void Eliminar(Nodo23 nodo, Carros valor)
 		{
@@ -41,83 +44,71 @@ namespace LAB5.ArbolesMulticaminos
 			}
 		}
 
-		public void insertar(Carros valor)
+		public static void insertar(Carros valor)
 		{
-			InsertarPlaca(raiz, valor);
-		}
+            list.Add(valor);
+            /*if (raiz == null)
+            {
+                raiz = new Nodo23(valor);
+                return;
+            }
 
-		public Nodo23 InsertarPlaca(Nodo23 nodo, Carros valor)
+            InsertarPlaca(raiz, valor);*/
+        }
+		
+
+		public static Nodo23 InsertarPlaca(Nodo23 nodo, Carros valor)
 		{
 
-			if (nodo == null)
-			{
-				return new Nodo23(valor);
-			}
-			else if (nodo.valor2 == null)
-			{
-				if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
-				{
-					nodo.valor2 = nodo.valor1;
-					nodo.valor1 = Convert.ToInt32(valor.placa);
-				}
-				else
-				{
-					nodo.valor2 = Convert.ToInt32(valor.placa);
-				}
+        if (nodo == null)
+        {
+            if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
+            {
+                nodo.valor2 = nodo.valor1;
+                nodo.valor1 = Convert.ToInt32(valor.placa);
 
-				return nodo;
+            }
+            else
+            {
+                nodo.valor2 = Convert.ToInt32(valor.placa);
+            }
 
+            return nodo;
+        }
+        else
+        {
+            if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
+            {
+                nodo.HijoIzquierdo = InsertarPlaca(nodo.HijoIzquierdo, valor);
+            }
+            else if (string.Compare(valor.placa, nodo.valor.placa) > nodo.valor2)
+            {
+                nodo.HijoDerecho = InsertarPlaca(nodo.HijoDerecho, valor);
+            }
 
-			}
-			else
-			{
-				if (string.Compare(valor.placa, nodo.valor.placa) < nodo.valor1)
-				{
-					InsertarPlaca(nodo.HijoIzquierdo, valor);
-				}
+            else
+            {
+                nodo.HijoMedio = InsertarPlaca(nodo.HijoMedio, valor);
+            }
 
-				else if (string.Compare(valor.placa, nodo.valor.placa) > nodo.valor2)
-				{
-					InsertarPlaca(nodo.HijoDerecho, valor);
-				}
+            if (nodo.HijoIzquierdo != null && nodo.HijoMedio != null && nodo.HijoDerecho != null)
+            {
+                Nodo23 nuevonodo = new Nodo23(nodo.valor2.Value);
+                nuevonodo.HijoIzquierdo = nodo.HijoIzquierdo;
+                nuevonodo.HijoMedio = nodo.HijoMedio;
+                nuevonodo.HijoDerecho = nodo.HijoDerecho;
+                nuevonodo.HijoIzquierdo.Padre = nuevonodo;
+                nuevonodo.HijoMedio.Padre = nuevonodo;
+                nuevonodo.HijoDerecho.Padre = nuevonodo;
+                nodo = nuevonodo;
 
-				else
-				{
-					InsertarPlaca(nodo.HijoMedio, valor);
-				}
+            }
 
-			}
-
-			if (nodo.valor2 != null)
-			{
-				Nodo23 nuevonodo = new Nodo23(nodo.valor2.Value);
-				nuevonodo.HijoIzquierdo = nodo.HijoMedio;
-				nuevonodo.HijoDerecho = nodo.HijoDerecho;
-
-				if (nuevonodo.HijoIzquierdo != null)
-				{
-					nuevonodo.HijoIzquierdo.Padre = nuevonodo;
-				}
-				if (nuevonodo.HijoDerecho != null)
-				{
-					nuevonodo.HijoDerecho.Padre = nuevonodo;
-				}
-				nodo.valor2 = null;
-				if (nodo.Padre == null)
-				{
-					nodo.Padre = new Nodo23(nodo.valor1);
-					raiz = nodo.Padre;
-				}
-
-				InsertarPlaca(nodo.Padre, nuevonodo.valor);
+            return nodo;
+        }
 
 
-			}
-
-			return null;
-
-
-		}
+    }
 
 		public Nodo23 eliminarplacahoja(Nodo23 nodo, Carros valor)
 		{
@@ -304,7 +295,46 @@ namespace LAB5.ArbolesMulticaminos
 
 			return Convert.ToInt32(nodo);
 		}
+        
+        public static List<Carros> Salida()
+		{
+			
+			
+			//list.Add(carr);
+			//Recorrido(raiz, list);
+			return list;
+		}
 
+		public static void edit(Carros carr)
+		{
+			list.Remove(carr);
+			insertar(carr);
+		}
+
+		public static void delet(Carros carr)
+		{
+			list.Remove(carr);
+		}
+
+		private void Recorrido(Nodo23 nodo, List<Carros> list)
+		{
+			if(nodo == null)
+			{
+				return;
+			}
+
+			Recorrido(nodo.HijoIzquierdo, list);
+
+			list.Add(nodo.valor);
+
+			if(nodo.valor != null)
+			{
+				Recorrido(nodo.HijoMedio, list);
+				list.Add(nodo.valor);
+			}
+
+			Recorrido(nodo.HijoDerecho, list);
+		}
 
 
 	}

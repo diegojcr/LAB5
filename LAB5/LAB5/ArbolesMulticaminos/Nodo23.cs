@@ -12,6 +12,8 @@ namespace LAB5.ArbolesMulticaminos
 
 		public Nodo23 HijoMedio { get; set; }
 
+		
+
 		public Carros valor { get; set; }
 
 		public int valor1 { get; set; }
@@ -23,7 +25,12 @@ namespace LAB5.ArbolesMulticaminos
 		public Nodo23(Carros valor)
 		{
 			this.valor = valor;
-		}
+            valor1 = Convert.ToInt32(valor);
+            valor2 = null;
+            HijoIzquierdo = null;
+            HijoDerecho = null;
+            HijoDerecho = null;
+        }
 
 		public Nodo23(int value)
 		{
